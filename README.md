@@ -2,7 +2,7 @@
 
 tagespoet.de
 ============
-*A Flask application generating poems out of daily news*
+*A Flask application generating poems from daily news*
 
 This application displays a website that showcases a poem. The poem is generated automatically on the basis of daily
 news. The website also comprises an archive and an explanation of how the poem is generated. The language of the created
