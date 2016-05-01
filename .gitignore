@@ -1,0 +1,5 @@
+*.pyc
+/static/.webassets-cache
+.idea
+flaskapp.cfg
+git_os

@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Jeder Tag ein Gedicht – tagespoet.de</title>
+    <META NAME="author" CONTENT="Florian Roscheck">
+    <META NAME="subject" CONTENT="Hobby">
+    <META NAME="Description"
+          CONTENT="Diese Seite zeigt jeden Tag ein Gedicht, das vom Computer automatisch aus den Nachrichten generiert wird.">
+    <META NAME="Keywords" CONTENT="Gedicht, Nachrichtenm Computergeneriert, Automatischm, Poesie, Programm, Dichtung">
+    <META NAME="Language" CONTENT="German">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="PUBLIC">
+    <META NAME="Copyright" CONTENT="Florian Roscheck">
+    <META NAME="Designer" CONTENT="Florian Roscheck">
+    <META NAME="Publisher" CONTENT="Florian Roscheck">
+    <META NAME="distribution" CONTENT="Global">
+    <META NAME="Robots" CONTENT="INDEX,FOLLOW">
+    <META NAME="country" CONTENT="Germany">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon"  href="{{ url_for('static', filename='resources/img/favicon') }}/logo_64x64.ico" sizes="64x64" />
+    <link rel="icon" type="image/x-icon"  href="{{ url_for('static', filename='resources/img/favicon') }}/logo_32x32.ico" sizes="32x32" />
+    <link rel="icon" type="image/x-icon"  href="{{ url_for('static', filename='resources/img/favicon') }}/logo_16x16.png" sizes="16x16" />
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap3/css/bootstrap.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='vendors/bootstrap3/css/font-awesome.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='resources/css/get-shit-done.css') }}" rel="stylesheet"/>
+
+    <!-- Datepicker -->
+    <link href="{{ url_for('static', filename='vendors/datepicker/css/bootstrap-datepicker3.css') }}" rel="stylesheet"/>
+
+    <!-- Font Awesome  -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Rufina' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Sintony' rel='stylesheet' type='text/css'>
+
+    <!-- Custom Style -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='resources/css/stylesheet.css') }}">
+
+</head>
+
+<body data-spy="scroll" data-target="#navbar-full">
+<div id="navbar-full">
+    <div id="navbar">
+        <nav class="navbar navbar-ct-blue navbar-transparent navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="pull-left"><img src="{{ url_for('static', filename='resources/img/logo.png') }}"
+                                                       alt="Tagespoet logo"
+                                                       style="width:40px;height:40px;margin-right:15px;margin-top:15px;display:block;margin-left:15px;"></a>
+                    <a class="navbar-brand" href="#">tagespoet.de</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#ueber" data-event-category="link" data-event-action="about">Über</a></li>
+                        <li><a href="#archiv" data-event-category="link" data-event-action="archive">Archiv</a></li>
+                        <li><a href="#funktionsweise" data-event-category="link" data-event-action="how_work">Funktion</a>
+                        </li>
+                        <li><a href="#kontakt" data-event-category="link" data-event-action="contact">Kontakt</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li id='#vidpause_link'><a id='vidpause' data-event-category="video"
+                                                   data-event-action="toggle_play"><span
+                                class="glyphicon glyphicon-pause"></span>
+                            Anhalten</a></li>
+                    </ul>
+
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+        <div class="blurred-container">
+            {% if cur_poem_render %}
+            <div class="jumbotron rwd-line">
+                {{ cur_poem|safe }}
+            </div>
+            {% endif %}
+            <video autoplay loop poster="{{ url_for('static', filename='resources/css/images/street.jpg') }}"
+                   id="bgvid">
+                <source src="{{ url_for('static', filename='resources/css/videos/street.webm') }}" type="video/webm">
+                <source src="{{ url_for('static', filename='resources/css/videos/street.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    <!--  end navbar -->
+</div>
+<!-- end menu-dropdown -->
+
+<div class="main">
+    <div class="container tim-container" style="max-width:800px; padding-top:100px">
+        <h1 class="text-center" id="ueber">Jeder Tag ein Gedicht.
+            <small class="subtitle">Über uns. So vielfältig wie die Welt.</small>
+        </h1>
+        <p>Diese Internetseite zeigt jeden Tag ein neues Gedicht. Das Besondere: Das Reimstück wird von einem Computer
+            automatisch aus tagesaktuellen Nachrichten gedichtet. Das Gedicht dient als Anregung zum Nachdenken in einer
+            Welt, die häufig starrköpfig
+            und kompromisslos erscheint.</p>
+        <p>Berechtigung, Spielhölle, Wolkenbank&nbsp;&ndash; Bitte ergänzen Sie! Ist es nicht toll, wie die Fantasie uns
+            schon bei diesen drei zufällig vom Computer zusammengewürfelten Worten mitnimmt? Was auch immer
+            dahintersteckt werden Sie niemals
+            erfahren. Denn der Computer kennt keinen Kontext, er reißt aus den Nachrichten Fetzen heraus und produziert
+            daraus ein Gedicht.</p>
+        <p>Die Präsentation der Wortfetzen ohne den ursprünglichen Kontext hilft dabei Abstand vom Tagesgeschehen zu
+            gewinnen. Wenn Gesellschaft und Einsamkeit, Krieg und Frieden, Berechtigung und Wolkenbank auf einmal im
+            Gedicht aufeinanderprallen dann
+            stimmt das nachdenklich. Wenn plötzlich ein Wort wie „Ehedrachen“ auftaucht, ja ist das überhaupt zeitgemäß?
+            Die Gedichte sind eine Bestandsaufnahme unserer menschlichen Welt. Was der Computer ohne Wertung generiert
+            erzeugt in uns Emotionen.
+            Wir werten. Und wie wir das tun und was wir daraus machen, das bestimmt unser Leben.</p>
+        <h2 id="archiv">Archiv</h2>
+        <p>Wählen Sie einen Tag aus um das an diesem Tag generierte Gedicht zu sehen. Zusätzlich zum Gedicht werden die
+            Wörter angezeigt, die der Computer verwendet hat um das Gedicht zu verfassen.</p>
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div id="sandbox-container" style="margin-top: 20px">
+                    <div class='datepicker datepicker-inline' style="margin:auto"
+                         data-date="{{ last_poem_date }}"></div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3><span id="archive_date">25. August 2015</span></h3>
+                            <span id="archive_poem">
+							{{ last_poem|safe }}
+                                </span>
+                    </div>
+                </div>
+                <div class="row spacer">
+                    <div class="col-md-12">
+                        <p class="text-muted">
+                            <small><span id="archive_keywords">{{ last_keywords|safe }}</span></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 id="funktionsweise">Funktionsweise</h2>
+        <p>Das untenstehende Diagramm beschreibt wie die Gedichte aus den Nachrichten vom Computer erzeugt werden. Der
+            Prozess ist grob in fünf Teile gegliedert.</p>
+        <picture>
+            <source media="(min-width: 420px)"
+                    srcset="{{ url_for('static', filename='resources/img/flowchart.png') }} 1x, {{ url_for('static', filename='resources/img/flowchart@2x.png') }} 2x"></source>
+            <source media="(min-width: 0px)"
+                    srcset="{{ url_for('static', filename='resources/img/flowchart_small.png') }} 1x, {{ url_for('static', filename='resources/img/flowchart_small@2x.png') }} 2x"></source>
+            <img src="{{ url_for('static', filename='resources/img/flowchart.png') }}" alt="Space Needle"
+                 class="img-responsive" style="margin-top:10px;margin-bottom:10px"
+                 alt="Flussdiagramm über die Funktionsweise des Programms zur Erzeugung von Gedichten">
+        </picture>
+        <ol>
+            <li>
+                <p><b>Lese Nachrichten von Internetseite</b>
+                    <br> Der Computer erfasst alle Wörter, die auf einer Internetseite für Nachrichten (<a
+                            href="http://www.tagesschau.de" target="_blank">Tagesschau.de</a>) vorkommen. Hierbei
+                    erfasst ein Programm zunächst die Hauptseite des Nachrichtenportals.
+                    Anschliessend verarbeitet das Programm alle von dort verlinkten Meldungen.</p>
+            </li>
+            <li>
+                <p><b>Finde meistbenutzte Wörter in Nachrichten</b>
+                    <br> Das Computerprogramm filtert alle <a href="https://de.wikipedia.org/wiki/Substantiv"
+                                                              target="_blank">Substantive</a> aus den
+                    Nachrichtenmeldungen heraus. Diesem Verhalten liegt die Annahme zugrunde, dass in den Substantiven
+                    der
+                    Nachrichten viele wichtige Informationen enthalten sind. </p>
+            </li>
+            <li>
+                <p><b>Finde Synonyme für Wörter</b>
+                    <br> <a href="https://de.wikipedia.org/wiki/Synonym" target="_blank">Synonyme</a> über die
+                    Nachrichten liefern eine Grundlage um das Tagesgeschehen aus einem anderen Blickwinkel zu sehen. Die
+                    Bedeutung eines Synonyms stimmt oft nicht
+                    exakt mit der Bedeutung des ursprünglichen Wortes überein. So liefern die Synonyme eine erste
+                    Erweiterung des Nachrichtenkontexts.</p>
+            </li>
+            <li>
+                <p><b>Finde Betonung der Synonyme</b>
+                    <br> Der Computer erfasst die Betonung der Synonyme, damit die Wörter anhand ihrer Betonung in einem
+                    <a href="https://de.wikipedia.org/wiki/Vers" target="_blank">Vers</a> angeordnet werden können. </p>
+            </li>
+            <li>
+                <p><b>Ordne die Wörter per Zufall zu Gedicht</b>
+                    <br> Das weiter oben beschriebene „Herausreißen“ der Nachrichten aus dem Kontext geschieht
+                    hauptsächlich in diesem Schritt. Der Computer arrangiert die Synonyme mithilfe eines
+                    Zufallsgenerator zu einem Gedicht. Auch wenn die Reihenfolge
+                    der Wörter am Ende beliebig ist, hält sich der Computer bei der Anordnung der Wörter an folgende
+                    Regeln:</p>
+                <ul>
+                    <li>
+                        <p>Die sechs Zeilen des Gedichtes sind in einem Reimschema, das <a
+                                href="https://de.wikipedia.org/w/index.php?title=Reim&oldid=152930907#Schweifreim"
+                                target="_blank">Schweifreim</a> genannt wird, angeordnet. Dies bedeutet, dass
+                            sich die Zeilenenden des Gedichts jeweils mit der nächsten oder einer anderen Zeile im
+                            Gedicht reimen. (Beispiel: <a href="http://www.nietzschesource.org/#eKGWB/FW-Vorspiel-62"
+                                                          target="_blank">Friedrich
+                                Nietzsche &nbsp;&ndash; Ecce Homo</a>)</p>
+                    </li>
+                    <li>
+                        <p>Die Wörter in einer Zeile müssen dem Versmaß <a href="https://de.wikipedia.org/wiki/Daktylus"
+                                                                           target="_blank">Daktylus</a> folgen. Daktylus
+                            bedeutet hier, dass auf eine betonte jeweils zwei unbetonte Silben folgen. (Beispiel:
+                            Sparkasse, Anfrage, Rundfrage, Antrag.) Dies wird mit „— ◡ ◡“ notiert.</p>
+                    </li>
+                </ul>
+                <p>Ein Beispiel für die Anwendung der oben genannten Regeln findet sich weiter unten.</p>
+                <p>Dass die Wörter zufällig arrangiert werden hat eine besondere Bedeutung: Wenn Menschen einen Text
+                    oder ein Gedicht schreiben, dann wählen und ordnen sie Wörter bewusst oder unbewusst so, dass Leser
+                    eine bestimmte Meinung aus dem Text
+                    ableiten können. Der Zufallsgenerator im Computer ist frei von dieser Beeinflussung. So entsteht
+                    Neues und Ungewohntes. So entstehen Gedichte, die uns durch ihren unvertrauten Stil zum Nachdenken
+                    anregen.
+                </p>
+            </li>
+            <blockquote>
+                <h3 style="margin-top:0">Beispiel: Gedicht mit Schweifreim und Daktylus</h3>
+                <div class="tonelinediv">
+                    <div class="tonediv">— ◡ ◡
+                        <br>Widerstand,
+                    </div>
+                    <div class="tonediv">— ◡ ◡
+                        <br>Anliegen,
+                    </div>
+                    <div class="tonediv">— ◡ ◡
+                        <br>Abfolge,
+                    </div>
+                    <div style="display:inline-block">
+                        <div class="tonediv">— ◡
+                            <br>Umstand,
+                        </div>
+                        <div class="tonediv">&nbsp;
+                            <br><span class="label label-success">Reim A</span></div>
+                    </div>
+                </div>
+                <div class="tonelinediv">
+                    <div class="tonediv">— ◡
+                        <br>Ansicht,
+                    </div>
+                    <div class="tonediv">◡ — ◡ ◡
+                        <br>Zusammenbruch,
+                    </div>
+                    <div class="tonediv">— ◡ ◡
+                        <br>Gegenkraft,
+                    </div>
+                    <div style="display:inline-block">
+                        <div class="tonediv">— ◡
+                            <br>Aufstand,
+                        </div>
+                        <div class="tonediv">&nbsp;
+                            <br><span class="label label-success">Reim A</span></div>
+                    </div>
+                </div>
+                <div class="tonelinediv">
+                    <div class="tonediv">— ◡ ◡
+                        <br>Weigerung,
+                    </div>
+                    <div class="tonediv">— ◡ ◡
+                        <br>Lebensjahr,
+                    </div>
+                    <div class="tonediv">— ◡
+                        <br>Kämpfer,
+                    </div>
+                    <div style="display:inline-block">
+                        <div class="tonediv">◡ —
+                            <br>Zerfall,
+                        </div>
+                        <div class="tonediv">&nbsp;
+                            <br><span class="label label-info">Reim B</span></div>
+                    </div>
+                </div>
+                <div class="tonelinediv">
+                    <div class="tonediv">— ◡ ◡
+                        <br>Ausrutscher,
+                    </div>
+                    <div class="tonediv">— ◡
+                        <br>Auskunft,
+                    </div>
+                    <div class="tonediv">◡ — ◡
+                        <br>Ermittlung,
+                    </div>
+                    <div style="display:inline-block">
+                        <div class="tonediv">◡ — ◡
+                            <br>Entfernung,
+                        </div>
+                        <div class="tonediv">&nbsp;
+                            <br><span class="label label-warning">Reim C</span></div>
+                    </div>
+                </div>
+                <div class="tonelinediv">
+                    <div class="tonediv">— ◡
+                        <br>Abbau,
+                    </div>
+                    <div class="tonediv">◡ — ◡
+                        <br>Beschreibung,
+                    </div>
+                    <div class="tonediv">◡ — ◡
+                        <br>Eröffnung,
+                    </div>
+                    <div style="display:inline-block">
+                        <div class="tonediv">◡ — ◡
+                            <br>Entgegnung,
+                        </div>
+                        <div class="tonediv">&nbsp;
+                            <br><span class="label label-warning">Reim C</span></div>
+                    </div>
+                </div>
+                <div class="tonelinediv">
+                    <div class="tonediv">—
+                        <br>Sturz,
+                    </div>
+                    <div class="tonediv">◡ ◡ —
+                        <br>Opponent,
+                    </div>
+                    <div class="tonediv">◡ ◡ — ◡
+                        <br>Untersuchung,
+                    </div>
+                    <div style="display:inline-block">
+                        <div class="tonediv">◡ —
+                            <br>Verfall.
+                        </div>
+                        <div class="tonediv">&nbsp;
+                            <br><span class="label label-info">Reim B</span></div>
+                    </div>
+                </div>
+            </blockquote>
+        </ol>
+        <h2 id="kontakt">Kontakt</h2>
+        <p>Haben Sie Fragen, Kritik oder Anregungen? Ich freue mich über Ihre Rückmeldung! Nutzen Sie das untenstehende
+            Kontaktformular oder die E-Mail-Adresse
+            <!--Place the code below where you want the link to be displayed-->
+                <span id="obf"><script>document.getElementById("obf").innerHTML="<n uers=\"znvygb:vasb@gntrfcbrg.qr\" gnetrg=\"_oynax\">vasb@gntrfcbrg.qr</n>".replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<="Z"?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26);});document.body.appendChild(eo);</script>
+<noscript><span style="unicode-bidi:bidi-override;direction:rtl;">ed.teopsegat@ofni</span></noscript>
+                </span> um mit mir Kontakt aufzunehmen.
+        </p>
+        {% if contact_form_success == 0 %} {% for message in contact_form.name.errors %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %} {% for message in contact_form.email.errors %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %} {% for message in contact_form.message.errors %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        <form action="{{ url_for('mainsite') }}" method=post>
+            {{ contact_form.hidden_tag() }}
+            <div class="col-lg-12">
+                <div class="form-group">
+                    {{ contact_form.name.label }} {{ contact_form.name(class_="form-control",placeholder="Geben Sie hier Ihren Namen ein.") }}
+                </div>
+                <div class="form-group">
+                    {{ contact_form.email.label }} {{ contact_form.email(class_="form-control",placeholder="Geben Sie hier Ihre E-Mail-Adresse ein.") }}
+                </div>
+                <div class="form-group">
+                    {{ contact_form.message.label }} {{ contact_form.message(class_="form-control",placeholder="Geben Sie hier Ihre Nachricht ein.") }}
+                </div>
+                <div class="form-group">
+                    {{ contact_form.recaptcha }}
+                </div>
+                <div class="form-group">
+                    {{ contact_form.submit(class_="btn btn-info pull-right") }}
+                </div>
+            </div>
+        </form>
+        {% else %}
+        <div class="alert alert-success">Ihre Nachricht wurde erfolgreich versendet.</div>
+        {% endif %}
+        <h2 style="clear:both">Quellcode</h2>
+            <div style="float:left;margin-right:15px;">
+                <a href="https://github.com/flrs/tagespoet" target="_blank"><i class="fa fa-github fa-4x" style="color:black;"></i></a>
+            </div>
+            <div>
+                <p>Der Quellcode für dieses Projekt ist kostenfrei zugänglich. Der Quellcode umfasst diese Website sowie
+                das Programm, das die Gedichte täglich erstellt. Der Quellcode kann auf <a
+                    href="https://github.com/flrs/tagespoet" target="_blank">GitHub</a>
+                eingesehen werden.</p>
+            </div>
+            <div style="clear:both">&nbsp;</div>
+        <div class="space"></div>
+    </div>
+</div>
+
+</div>
+<!-- end container -->
+</div>
+<!-- end main -->
+</body>
+
+<script>
+$SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
+
+</script>
+
+<script src="{{ url_for('static', filename='resources/js/all_minified.js') }}" type="text/javascript"></script>
+
+<script>
+    var csrftoken = $('meta[name=csrf-token]').attr('content');
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken)
+            }
+        }
+    });
+
+    $('#archive_date').text(moment('{{ last_poem_date_heading }}').format('Do MMMM YYYY'));
+
+    $('#sandbox-container div').datepicker({
+        format: "dd.mm.yyyy",
+        endDate: "{{ last_poem_date }}",
+        startDate: "{{ first_poem_date }}",
+        language: "de"
+    }).on('changeDate', function(ev) {
+        ga('send', 'event', 'Archive', 'get', ev.date.toUTCString());
+        $.getJSON('/_get_archived_poem', {
+                date: ev.date.toUTCString()
+            },
+            function(data) {
+                $('#archive_keywords').fadeOut('fast',
+                    function() {
+                        $('#archive_keywords').html(data.keywords).fadeIn('fast');
+                    });
+                $('#archive_date').fadeOut('fast',
+                    function() {
+                        $('#archive_date').text(moment(data.timestamp).format('Do MMMM YYYY')).fadeIn('fast');
+                    });
+                $('#archive_poem').fadeOut('fast',
+                    function() {
+                        $('#archive_poem').html(data.poem).fadeIn('fast');
+                    });
+            });
+    });
+
+</script>
+
+{% if jump_to_contact == 1 %}
+<script>
+    $("html, body").animate({
+        scrollTop: $('#kontakt').offset().top
+    }, 0);
+
+</script>
+{% endif %}
+
+<script async src="{{ url_for('static', filename='vendors/autotrack/autotrack.js') }}"></script>
+
+</html>

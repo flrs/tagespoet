@@ -1,0 +1,152 @@
+video { display: block; }
+
+video#bgvid {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(images/street.jpg) no-repeat;
+    background-size: cover;
+}
+
+video#bgvid {
+    transition: 1s opacity;
+}
+.stopfade { opacity: .5; }
+
+@media screen and (max-device-width: 800px) {
+    html {
+         background: url(images/street.jpg) #000 no-repeat center center fixed;
+    }
+    #bgvid {
+        display: none;
+    }
+}
+
+#poemline {
+    font-family: 'Rufina', cursive;
+    text-align: center;
+    font-size: 1em;
+    line-height: 200%;
+}
+
+#poemarchiveline {
+margin: 0;
+text-align: left;
+}
+
+.jumbotron {
+   background: rgb(255, 255, 255); /* This is for ie8 and below */
+   background: rgba(255, 255, 255, 0.5);
+   position: relative;
+   margin:auto;
+   width:600px;
+   top: 100px;
+   margin-top:20px;
+   margin-bottom:20px;
+   padding-top: 30px;
+   padding-bottom: 30px;
+}
+
+.jumbotron p{
+    margin:0;
+}
+
+
+.container-table {
+    display: table;
+}
+.vertical-center-row {
+    display: table-cell;
+    /*vertical-align: middle;*/
+}
+
+body {
+    position: relative;
+    font-family: "Sintony", Helvetica, Arial, sans-serif;
+}
+
+.hidden-element {
+    visibility: hidden;
+}
+
+.unhidden-element {
+    visibility: visible;
+}
+
+@media (max-width: 1000px) {
+    #poemline{
+        font-size: 0.9em;
+    }
+
+    .jumbotron {
+        width:550px;
+        top: 100px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    #poemline{
+        font-size: 0.8em;
+        text-align: left;
+        padding-left: 22px ;
+        text-indent: -22px ;
+        line-height: 150%;
+        display:block;
+    }
+
+    p#poemline{
+        margin-bottom: 0.5em;
+    }
+
+    .jumbotron {
+        width:80%;
+        top: 100px;
+        min-width: 280px;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-top:15px;
+        margin-bottom:10px;
+    }
+
+}
+
+@media screen and (min-width: 600px) {
+.rwd-break {
+    display: none;
+}
+}
+
+.spacer {
+    margin-top: 1em; /* define margin as you see fit */
+}
+
+p {
+   -moz-hyphens: auto;
+   -o-hyphens: auto;
+   -webkit-hyphens: auto;
+   -ms-hyphens: auto;
+   hyphens: auto;
+   }
+
+.tonediv {
+margin-right: 5px;
+float: left;
+height:40px;
+}
+
+.tonelinediv {
+margin-bottom:5px;
+min-height:40px;
+clear:both;
+display:inline-block;
+}

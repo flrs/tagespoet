@@ -1,0 +1,22 @@
+directory: ./static/
+debug: False
+bundles:
+  js-all:
+    contents:
+      - vendors/jquery/jquery-1.10.2.js
+      - vendors/jquery/jquery-ui.custom.min.js
+      - vendors/bootstrap3/js/bootstrap.js
+      - resources/js/gsdk-checkbox.js
+      - resources/js/gsdk-radio.js
+      - resources/js/gsdk-bootstrapswitch.js
+      - resources/js/get-shit-done.js
+      - resources/js/custom.js
+      - resources/js/video_button.js
+      - resources/js/scrollspy_activate.js
+      - vendors/datepicker/js/bootstrap-datepicker.js
+      - vendors/datepicker/locales/bootstrap-datepicker.de.min.js
+      - vendors/moment/moment-with-locales.min.js
+      - resources/js/moment_localize.js
+      - resources/js/ganalytics.js
+    filters: jsmin
+    output: resources/js/all_minified.js
