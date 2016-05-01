@@ -44,5 +44,5 @@ The template for the OpenShift flask application was taken from [Ryan Jarvinen's
 
 License
 -------
-The code in this repository is distributed under a [Simplified BSD License](https://github.com/flrs/HampelFilter/blob/master/LICENSE.md).
+The code in this repository is distributed under a [Simplified BSD License](LICENSE.md).
 
